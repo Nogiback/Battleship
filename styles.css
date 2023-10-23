@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;500;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Squada+One&display=swap');
+
+:root {
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  --darkershadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+  --black: rgb(20, 20, 20);
+  --darkpurple: rgb(82,5,123);
+  --purple: rgb(137, 44, 220);
+  --lightpurple: rgb(188,111,241);
+  --lighterpurple: rgb(203, 154, 241);
+}
+
 *,
 *::before,
 *::after {
@@ -8,4 +22,107 @@
   font-weight: normal;
   font: inherit;
   box-sizing: inherit;
+}
+
+body {
+  font-family: 'Squada One', sans-serif;
+  background-color: var(--black);
+  color: var(--purple);
+  line-height: 1.6;
+}
+
+.fab {
+  color: var(--lighterpurple);
+}
+
+.fa-solid {
+  padding-right: 12px;
+  vertical-align: middle;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  color: var(--lightpurple);
+}
+
+.main {
+  display: flex;
+  padding-bottom: 48px;
+}
+
+/*----------------------------------- HEADER ------------------------------------*/
+
+header {
+  color: var(--lightpurple);
+  padding: 20px 50px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 50px;
+  background-color: var(--darkpurple);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.title {
+  display: flex;
+  flex: none;
+}
+
+.title .fa-ship {
+  font-size: 3rem;
+}
+
+.fa-play {
+  font-size: 1.6rem;
+  vertical-align: middle;
+}
+
+.site-name {
+  vertical-align: middle;
+  font-size: 2.5rem;
+  line-height: 1.3;
+}
+
+#start-btn {
+  color: var(--lightpurple);
+  padding: 0.6rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  border: 1px solid var(--lightpurple);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  position: relative;
+  min-width: 120px;
+}
+
+#start-btn:hover {
+  color: var(--darkpurple);
+  background: var(--lightpurple);
+  transition: 0.3s ease;
+}
+
+#start-btn:active {
+  top: 2px;
+}
+
+/*----------------------------------- FOOTER ------------------------------------*/
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-height: 48px;
+  padding: 10px 0px;
+  font-size: 1.3rem;
+  background: var(--darkpurple);
+  color: var(--lighterpurple);
 }
