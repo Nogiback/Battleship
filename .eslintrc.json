@@ -13,6 +13,9 @@
     "no-console": "off",
     "no-alert": "off",
     "no-param-reassign": "warn",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "prefer-destructuring": "off",
+    "consistent-return": "off",
+    "no-unused-vars": "warn"
   }
 }

@@ -1,6 +1,6 @@
 import Ship from '../Ship';
 
-describe('ship', () => {
+describe('Ship', () => {
   test('Should return length of ship that is passed through', () => {
     const carrier = new Ship('carrier', 5);
     expect(carrier.getLength()).toBe(5);
