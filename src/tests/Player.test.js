@@ -16,6 +16,15 @@ describe('Player', () => {
     expect(player.getName()).toMatch('Nogiback');
   });
 
+  test('Player should return the correct gameboard when called', () => {
+    const board = new Gameboard(10);
+    const aiBoard = new Gameboard(10);
+    const player = new Player('Peter', board);
+    const ai = new Player('AI', aiBoard);
+    expect(player.getGameboard()).toBe(board);
+    expect(ai.getGameboard()).toBe(aiBoard);
+  });
+
   test('Player should be able to attack opponent gameboard if they have turn', () => {
     const playerBoard = new Gameboard(10);
     const aiBoard = new Gameboard(10);

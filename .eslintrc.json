@@ -17,6 +17,6 @@
     "prefer-destructuring": "off",
     "consistent-return": "off",
     "no-unused-vars": "warn",
-    "no-loop-func": "warn"
+    "no-loop-func": "off"
   }
 }
