@@ -23,7 +23,7 @@ export default class Player {
       const result = opponent.gameboard.receiveAttack(x, y);
       this.turn = false;
       opponent.startTurn();
-      return result;
+      return { result, x, y };
     }
     return false;
   }

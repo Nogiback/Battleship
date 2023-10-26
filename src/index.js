@@ -69,7 +69,7 @@ function createGameboard(playerName) {
       cell.textContent = `${x},${y}`;
       if (playerName.name === 'Computer') {
         cell.addEventListener('click', (e) => {
-          handleAttackEvent(e.target);
+          handlePlayerAttack(e.target);
         });
         cell.style.cursor = 'pointer';
       }
@@ -78,24 +78,39 @@ function createGameboard(playerName) {
   }
 }
 
-function handleAttackEvent(cell) {
+function handlePlayerAttack(cell) {
   const x = parseInt(cell.dataset.x);
   const y = parseInt(cell.dataset.y);
-  const resultPlayer = player.attack(ai, x, y);
-  updateGameboard(resultPlayer);
+  const attackInfo = player.attack(ai, x, y);
+  const result = attackInfo.result;
+  updateGameboard(result, cell);
   cell.style.pointerEvents = 'none';
   if (ai.gameboard.allShipsSunk()) {
     endGame(player);
   }
-  const resultAI = ai.generateRandomAttack(player);
-  updateGameboard(resultAI);
+  handleAIAttack();
+}
+
+function handleAIAttack() {
+  const attackInfo = ai.generateRandomAttack(player);
+  const x = attackInfo.x;
+  const y = attackInfo.y;
+  const result = attackInfo.result;
+  const cell = document.querySelector(
+    `#player-board [data-x="${x}"][data-y="${y}"]`,
+  );
+  updateGameboard(result, cell);
   if (player.gameboard.allShipsSunk()) {
     endGame(ai);
   }
 }
 
-function updateGameboard(playerName) {
-  console.log(playerName.gameboard.getMissedAttacks());
+function updateGameboard(result, cell) {
+  if (result) {
+    cell.classList.add('hit');
+  } else {
+    cell.classList.add('miss');
+  }
 }
 
 function endGame(winner) {
