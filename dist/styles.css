@@ -46,11 +46,6 @@ button {
   color: var(--lightpurple);
 }
 
-.main {
-  display: flex;
-  padding-bottom: 48px;
-}
-
 /*----------------------------------- HEADER ------------------------------------*/
 
 header {
@@ -64,9 +59,6 @@ header {
   gap: 50px;
   background-color: var(--darkpurple);
   box-shadow: var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 }
 
 .title {
@@ -109,17 +101,69 @@ header {
 #start-btn:active {
   top: 2px;
 }
+/*------------------------------------ MAIN -------------------------------------*/
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: var(--black);
+  margin-top: 5rem;
+}
+
+.sides {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-title {
+  font-size: 2rem;
+  color: var(--lightpurple);
+}
+
+#player-side,
+#ai-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.board {
+  width: 400px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.cell {
+  border: black solid 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--lighterpurple);
+}
+
+#game-message {
+  font-size: 3rem;
+  color: var(--lightpurple);
+  margin-top: 2rem;
+}
 
 /*----------------------------------- FOOTER ------------------------------------*/
 
 .footer {
   position: fixed;
   bottom: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 100%;
   max-height: 48px;
   padding: 10px 0px;
   font-size: 1.3rem;

@@ -9,6 +9,7 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
+  "ignorePatterns": "main.js",
   "rules": {
     "no-console": "off",
     "no-alert": "off",
@@ -17,6 +18,8 @@
     "prefer-destructuring": "off",
     "consistent-return": "off",
     "no-unused-vars": "warn",
-    "no-loop-func": "off"
+    "no-loop-func": "off",
+    "no-use-before-define": "warn",
+    "radix": "off"
   }
 }

@@ -22,9 +22,9 @@ export default class Player {
     if (this.checkTurn()) {
       const result = opponent.gameboard.receiveAttack(x, y);
       this.turn = false;
+      opponent.startTurn();
       return result;
     }
-
     return false;
   }
 
