@@ -154,6 +154,14 @@ header {
   margin-top: 2rem;
 }
 
+.cell.hit {
+  background-color: red;
+}
+
+.cell.miss {
+  background-color: grey;
+}
+
 /*----------------------------------- FOOTER ------------------------------------*/
 
 .footer {
