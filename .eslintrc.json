@@ -20,6 +20,7 @@
     "no-unused-vars": "warn",
     "no-loop-func": "off",
     "no-use-before-define": "warn",
-    "radix": "off"
+    "radix": "off",
+    "default-case": "off",
   }
 }

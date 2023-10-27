@@ -3,9 +3,11 @@ import Gameboard from './Gameboard';
 import Ship from './Ship';
 
 // DOM Elements
-const playerBoardDOM = document.getElementById('player-board');
-const aiBoardDOM = document.getElementById('ai-board');
 const message = document.getElementById('game-message');
+const shipContainer = document.getElementById('add-ships-container');
+const shipsDOM = document.querySelectorAll('.ship');
+const playerSide = document.querySelector('#player-side');
+const aiSide = document.querySelector('#ai-side');
 
 // Player Ships
 const playerCarrier = new Ship('playerCarrier', 5);
@@ -35,11 +37,18 @@ const aiBoard = new Gameboard(10);
 const player = new Player('Player', playerBoard);
 const ai = new Player('Computer', aiBoard);
 
-playerBoard.placeShip(playerCarrier, 0, 0, true);
-playerBoard.placeShip(playerBattleship, 1, 8, true);
-playerBoard.placeShip(playerCruiser, 9, 3, false);
-playerBoard.placeShip(playerSubmarine, 5, 3, true);
-playerBoard.placeShip(playerDestroyer, 0, 2, false);
+// playerBoard.placeShip(playerCarrier, 0, 0, true);
+// playerBoard.placeShip(playerBattleship, 1, 8, true);
+// playerBoard.placeShip(playerCruiser, 9, 3, false);
+// playerBoard.placeShip(playerSubmarine, 5, 3, true);
+// playerBoard.placeShip(playerDestroyer, 0, 2, false);
+
+shipsDOM.forEach((ship) => {
+  ship.addEventListener('click', toggleShipDirection);
+  ship.addEventListener('dragstart', (e) => {
+    e.dataTransfer.setData('text/plain', e.target.id);
+  });
+});
 
 aiBoard.placeShip(aiCarrier, 0, 0, true);
 aiBoard.placeShip(aiBattleship, 1, 8, true);
@@ -51,6 +60,22 @@ createGameboard(player);
 createGameboard(ai);
 
 player.startTurn();
+
+function toggleShipDirection() {
+  if (shipContainer.style.flexDirection === 'column') {
+    shipsDOM.forEach((ship) => {
+      ship.style.display = 'block';
+      ship.dataset.horizontal = 'false';
+    });
+    shipContainer.style.flexDirection = 'row';
+  } else {
+    shipsDOM.forEach((ship) => {
+      ship.style.display = 'flex';
+      ship.dataset.horizontal = 'true';
+    });
+    shipContainer.style.flexDirection = 'column';
+  }
+}
 
 function createGameboard(playerName) {
   let gameboardDOM;
@@ -72,10 +97,131 @@ function createGameboard(playerName) {
           handlePlayerAttack(e.target);
         });
         cell.style.cursor = 'pointer';
+      } else if (playerName.name === 'Player') {
+        cell.addEventListener('dragover', (e) => {
+          e.preventDefault();
+        });
+        cell.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropPlayerShip(e);
+        });
       }
       gameboardDOM.appendChild(cell);
     }
   }
+}
+
+function dropPlayerShip(e) {
+  const shipName = e.dataTransfer.getData('text');
+  const x = parseInt(e.target.getAttribute('data-x'));
+  const y = parseInt(e.target.getAttribute('data-y'));
+  const carrierDOM = document.querySelector('#carrier');
+  const battleshipDOM = document.querySelector('#battleship');
+  const cruiserDOM = document.querySelector('#cruiser');
+  const submarineDOM = document.querySelector('#submarine');
+  const destroyerDOM = document.querySelector('#destroyer');
+  let horizontal;
+
+  switch (shipName) {
+    case 'carrier':
+      if (carrierDOM.getAttribute('data-horizontal') === 'false') {
+        horizontal = false;
+      } else {
+        horizontal = true;
+      }
+      if (player.gameboard.isValidPosition(playerCarrier, x, y, horizontal)) {
+        player.gameboard.placeShip(playerCarrier, x, y, horizontal);
+        renderShips(player);
+        shipContainer.removeChild(carrierDOM);
+        if (shipContainer.childNodes.length <= 6) {
+          shipContainer.style.display = 'none';
+          aiSide.style.display = 'flex';
+        }
+      }
+      break;
+    case 'battleship':
+      if (battleshipDOM.getAttribute('data-horizontal') === 'false') {
+        horizontal = false;
+      } else {
+        horizontal = true;
+      }
+      if (
+        player.gameboard.isValidPosition(playerBattleship, x, y, horizontal)
+      ) {
+        player.gameboard.placeShip(playerBattleship, x, y, horizontal);
+        renderShips(player);
+        shipContainer.removeChild(battleshipDOM);
+        if (shipContainer.childNodes.length <= 6) {
+          shipContainer.style.display = 'none';
+          aiSide.style.display = 'flex';
+        }
+      }
+      break;
+    case 'cruiser':
+      if (cruiserDOM.getAttribute('data-horizontal') === 'false') {
+        horizontal = false;
+      } else {
+        horizontal = true;
+      }
+      if (player.gameboard.isValidPosition(playerCruiser, x, y, horizontal)) {
+        player.gameboard.placeShip(playerCruiser, x, y, horizontal);
+        renderShips(player);
+        shipContainer.removeChild(cruiserDOM);
+        if (shipContainer.childNodes.length <= 6) {
+          shipContainer.style.display = 'none';
+          aiSide.style.display = 'flex';
+        }
+      }
+      break;
+    case 'submarine':
+      if (submarineDOM.getAttribute('data-horizontal') === 'false') {
+        horizontal = false;
+      } else {
+        horizontal = true;
+      }
+      if (player.gameboard.isValidPosition(playerSubmarine, x, y, horizontal)) {
+        player.gameboard.placeShip(playerSubmarine, x, y, horizontal);
+        renderShips(player);
+        shipContainer.removeChild(submarineDOM);
+        if (shipContainer.childNodes.length <= 6) {
+          shipContainer.style.display = 'none';
+          aiSide.style.display = 'flex';
+        }
+      }
+      break;
+    case 'destroyer':
+      if (destroyerDOM.getAttribute('data-horizontal') === 'false') {
+        horizontal = false;
+      } else {
+        horizontal = true;
+      }
+      if (player.gameboard.isValidPosition(playerDestroyer, x, y, horizontal)) {
+        player.gameboard.placeShip(playerDestroyer, x, y, horizontal);
+        renderShips(player);
+        shipContainer.removeChild(destroyerDOM);
+        if (shipContainer.childNodes.length <= 6) {
+          shipContainer.style.display = 'none';
+          aiSide.style.display = 'flex';
+        }
+      }
+      break;
+  }
+}
+
+function renderShips(player) {
+  const playerGameboard = player.gameboard.board;
+  console.log(playerGameboard);
+
+  playerGameboard.forEach((row, x) => {
+    row.forEach((cell, y) => {
+      if (cell instanceof Ship) {
+        let selectedCell = document.querySelector(
+          `#player-board [data-x="${x}"][data-y="${y}"]`,
+        );
+        selectedCell.classList.add('occupied');
+      }
+    });
+  });
 }
 
 function handlePlayerAttack(cell) {
