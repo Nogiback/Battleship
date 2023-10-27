@@ -15,13 +15,6 @@ const playerBattleship = new Ship('playerBattleship', 4);
 const playerCruiser = new Ship('playerCruiser', 3);
 const playerSubmarine = new Ship('playerSubmarine', 3);
 const playerDestroyer = new Ship('playerDestroyer', 2);
-const playerShips = [
-  playerCarrier,
-  playerBattleship,
-  playerCruiser,
-  playerSubmarine,
-  playerDestroyer,
-];
 
 // AI Ships
 const aiCarrier = new Ship('aiCarrier', 5);
@@ -37,12 +30,6 @@ const aiBoard = new Gameboard(10);
 const player = new Player('Player', playerBoard);
 const ai = new Player('Computer', aiBoard);
 
-// playerBoard.placeShip(playerCarrier, 0, 0, true);
-// playerBoard.placeShip(playerBattleship, 1, 8, true);
-// playerBoard.placeShip(playerCruiser, 9, 3, false);
-// playerBoard.placeShip(playerSubmarine, 5, 3, true);
-// playerBoard.placeShip(playerDestroyer, 0, 2, false);
-
 shipsDOM.forEach((ship) => {
   ship.addEventListener('click', toggleShipDirection);
   ship.addEventListener('dragstart', (e) => {
@@ -50,16 +37,24 @@ shipsDOM.forEach((ship) => {
   });
 });
 
-aiBoard.placeShip(aiCarrier, 0, 0, true);
-aiBoard.placeShip(aiBattleship, 1, 8, true);
-aiBoard.placeShip(aiCruiser, 9, 3, false);
-aiBoard.placeShip(aiSubmarine, 5, 3, true);
-aiBoard.placeShip(aiDestroyer, 0, 2, false);
+placeAIShips();
 
 createGameboard(player);
 createGameboard(ai);
 
 player.startTurn();
+
+function placeAIShips() {
+  aiShips.forEach((ship) => {
+    let x, y, horizontal;
+    do {
+      x = Math.floor(Math.random() * aiBoard.size);
+      y = Math.floor(Math.random() * aiBoard.size);
+      horizontal = Math.random() < 0.5;
+    } while (!aiBoard.isValidPosition(ship, x, y, horizontal));
+    aiBoard.placeShip(ship, x, y, horizontal);
+  });
+}
 
 function toggleShipDirection() {
   if (shipContainer.style.flexDirection === 'column') {

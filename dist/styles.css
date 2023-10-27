@@ -55,8 +55,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap;
-  gap: 50px;
   background-color: var(--darkpurple);
   box-shadow: var(--shadow);
 }
@@ -109,7 +107,7 @@ header {
   justify-content: center;
   flex-direction: column;
   background: var(--black);
-  margin-top: 5rem;
+  margin-top: 1rem;
 }
 
 .sides {
@@ -176,7 +174,6 @@ header {
 #game-message {
   font-size: 3rem;
   color: var(--lightpurple);
-  margin-top: 2rem;
 }
 .cell.occupied {
   background-color: var(--darkpurple);
