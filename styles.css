@@ -132,6 +132,31 @@ header {
   margin: 2rem;
 }
 
+#ai-side {
+  display: none;
+}
+
+#add-ships-container {
+  display: flex;
+  width: 30vw;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem;
+}
+
+.ship {
+  display: block;
+}
+
+.block {
+  background-color: var(--darkpurple);
+  border: var(--lighterpurple) solid 1px;
+  width: 40px;
+  height: 40px;
+}
+
 .board {
   width: 400px;
   height: 400px;
@@ -153,6 +178,9 @@ header {
   color: var(--lightpurple);
   margin-top: 2rem;
 }
+.cell.occupied {
+  background-color: var(--darkpurple);
+}
 
 .cell.hit {
   background-color: red;
@@ -161,6 +189,7 @@ header {
 .cell.miss {
   background-color: grey;
 }
+
 
 /*----------------------------------- FOOTER ------------------------------------*/
 
