@@ -8,6 +8,15 @@ const shipContainer = document.getElementById('add-ships-container');
 const shipsDOM = document.querySelectorAll('.ship');
 const playerSide = document.querySelector('#player-side');
 const aiSide = document.querySelector('#ai-side');
+const startBtn = document.querySelector('#start-btn');
+const nameModal = document.querySelector('#name-modal');
+const closeModal = document.querySelector('#close-modal');
+const submitBtn = document.querySelector('#submit-btn');
+const nameField = document.querySelector('#name');
+const playerTitle = document.querySelector('#player-title');
+const endgameModal = document.querySelector('#endgame-modal');
+const winnerTitle = document.querySelector('#winner-title');
+const restartBtn = document.querySelector('#restart-btn');
 
 // Player Ships
 const playerCarrier = new Ship('playerCarrier', 5);
@@ -30,6 +39,26 @@ const aiBoard = new Gameboard(10);
 const player = new Player('Player', playerBoard);
 const ai = new Player('Computer', aiBoard);
 
+startBtn.addEventListener('click', () => {
+  nameModal.showModal();
+  nameField.focus();
+});
+
+closeModal.addEventListener('click', () => {
+  nameModal.close();
+});
+
+submitBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  player.setName(nameField.value);
+  playerTitle.textContent = `${player.getName()}'s Board`;
+  nameModal.close();
+  startBtn.style.display = 'none';
+  shipContainer.style.pointerEvents = 'auto';
+  message.textContent = 'Place your ships! Click to rotate them!';
+});
+
+// Allow ship placement and generate gameboards
 shipsDOM.forEach((ship) => {
   ship.addEventListener('click', toggleShipDirection);
   ship.addEventListener('dragstart', (e) => {
@@ -42,8 +71,10 @@ placeAIShips();
 createGameboard(player);
 createGameboard(ai);
 
+// Start game with player
 player.startTurn();
 
+// Randomly place AI ships onto its respective gameboard
 function placeAIShips() {
   aiShips.forEach((ship) => {
     let x, y, horizontal;
@@ -74,10 +105,10 @@ function toggleShipDirection() {
 
 function createGameboard(playerName) {
   let gameboardDOM;
-  if (playerName.name === 'Player') {
-    gameboardDOM = document.getElementById('player-board');
+  if (playerName.name === 'Computer') {
+    gameboardDOM = document.querySelector('#ai-board');
   } else {
-    gameboardDOM = document.getElementById('ai-board');
+    gameboardDOM = document.querySelector('#player-board');
   }
 
   for (let y = 0; y < playerName.gameboard.size; y++) {
@@ -92,7 +123,7 @@ function createGameboard(playerName) {
           handlePlayerAttack(e.target);
         });
         cell.style.cursor = 'pointer';
-      } else if (playerName.name === 'Player') {
+      } else {
         cell.addEventListener('dragover', (e) => {
           e.preventDefault();
         });
@@ -131,6 +162,7 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
+          message.textContent = 'Attack! Sink all the enemy ships!';
         }
       }
       break;
@@ -149,6 +181,7 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
+          message.textContent = 'Attack! Sink all the enemy ships!';
         }
       }
       break;
@@ -165,6 +198,7 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
+          message.textContent = 'Attack! Sink all the enemy ships!';
         }
       }
       break;
@@ -181,6 +215,7 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
+          message.textContent = 'Attack! Sink all the enemy ships!';
         }
       }
       break;
@@ -197,6 +232,7 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
+          message.textContent = 'Attack! Sink all the enemy ships!';
         }
       }
       break;
@@ -205,7 +241,6 @@ function dropPlayerShip(e) {
 
 function renderShips(player) {
   const playerGameboard = player.gameboard.board;
-  console.log(playerGameboard);
 
   playerGameboard.forEach((row, x) => {
     row.forEach((cell, y) => {
@@ -256,4 +291,12 @@ function updateGameboard(result, cell) {
 
 function endGame(winner) {
   message.textContent = `${winner.name} has won!`;
+  aiSide.style.pointerEvents = 'none';
+  endgameModal.show();
+  winnerTitle.textContent = `${winner.getName()} Wins!`;
+  restartBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    endgameModal.close();
+    window.location.reload();
+  });
 }
