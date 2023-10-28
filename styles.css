@@ -53,7 +53,7 @@ header {
   padding: 20px 50px;
   height: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: var(--darkpurple);
   box-shadow: var(--shadow);
@@ -79,26 +79,6 @@ header {
   line-height: 1.3;
 }
 
-#start-btn {
-  color: var(--lightpurple);
-  padding: 0.6rem;
-  font-size: 1.2rem;
-  border-radius: 50px;
-  border: 1px solid var(--lightpurple);
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  position: relative;
-  min-width: 120px;
-}
-
-#start-btn:hover {
-  color: var(--darkpurple);
-  background: var(--lightpurple);
-  transition: 0.3s ease;
-}
-
-#start-btn:active {
-  top: 2px;
-}
 /*------------------------------------ MAIN -------------------------------------*/
 
 .main {
@@ -107,13 +87,16 @@ header {
   justify-content: center;
   flex-direction: column;
   background: var(--black);
-  margin-top: 1rem;
+  width: 80%;
+  margin: auto;
+  margin-top: 7rem;
 }
 
 .sides {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 2rem;
 }
 
 .board-title {
@@ -127,7 +110,6 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2rem;
 }
 
 #ai-side {
@@ -136,12 +118,13 @@ header {
 
 #add-ships-container {
   display: flex;
-  width: 30vw;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  margin: 2rem;
+  min-width: 350px;
+  margin-left: 1rem;
+  pointer-events: none;
 }
 
 .ship {
@@ -174,6 +157,7 @@ header {
 #game-message {
   font-size: 3rem;
   color: var(--lightpurple);
+  margin-top: 3rem;
 }
 .cell.occupied {
   background-color: var(--darkpurple);
@@ -185,6 +169,129 @@ header {
 
 .cell.miss {
   background-color: grey;
+}
+
+#start-btn {
+  color: var(--lighterpurple);
+  background-color: var(--darkpurple);
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 50px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  position: relative;
+  min-width: 140px;
+}
+
+#start-btn:hover {
+  color: var(--darkpurple);
+  background: var(--lightpurple);
+  transition: 0.3s ease;
+}
+
+#start-btn:active {
+  top: 2px;
+}
+
+/*----------------------------------- MODAL ------------------------------------*/
+
+#name-modal,
+#endgame-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 230px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  background-color: var(--darkpurple);
+  border: 2px solid var(--lightpurple);
+}
+
+#endgame-modal {
+  width: 300px;
+  height: 200px;
+}
+
+#endgame-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#name-modal h1,
+#endgame-modal h1 {
+  color: var(--lighterpurple);
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 2rem;
+}
+
+#endgame-modal h1 {
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+#close-modal .material-symbols-outlined {
+  margin: 0;
+  font-size: 2rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: var(--lightgreen);
+  border: 1px solid var(--lightgreen);
+}
+
+#close-modal .material-symbols-outlined:hover {
+ color: red;
+ transition: 0.3s ease;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#name-modal input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid var(--lightpurple);
+  color: var(--darkpurple);
+  background: white;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+#submit-btn,
+#restart-btn {
+  color: var(--lighterpurple);
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  border: 1px solid var(--lighterpurple);
+  background-color: var(--darkpurple);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 120px;
+  position: relative;
+  cursor: pointer;
+}
+
+#submit-btn:hover,
+#restart-btn:hover {
+  color: var(--darkpurple);
+  background: var(--lightpurple);
+  transition: 0.3s ease;
+}
+
+#submit-btn:active,
+#restart-btn:active {
+  top: 2px;
 }
 
 
@@ -203,4 +310,14 @@ header {
   font-size: 1.3rem;
   background: var(--darkpurple);
   color: var(--lighterpurple);
+}
+
+@media screen and (max-height: 800px) {
+  #game-message {
+    font-size: 2rem;
+    margin-top: 2rem;
+  }
+  .main {
+    margin-top: 4rem;
+  }
 }
