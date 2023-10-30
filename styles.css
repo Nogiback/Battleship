@@ -154,11 +154,23 @@ header {
   background-color: var(--lighterpurple);
 }
 
-#game-message {
-  font-size: 3rem;
+#message-container {
   color: var(--lightpurple);
   margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+#main-message {
+  font-size: 3rem;
+}
+
+#secondary-message {
+  font-size: 1.5rem;
+}
+
 .cell.occupied {
   background-color: var(--darkpurple);
 }
@@ -313,9 +325,16 @@ form {
 }
 
 @media screen and (max-height: 800px) {
-  #game-message {
-    font-size: 2rem;
+  #message-container {
     margin-top: 2rem;
+  }
+  
+  #main-message {
+    font-size: 2rem;
+  }
+  
+  #secondary-message {
+    font-size: 1rem;
   }
   .main {
     margin-top: 4rem;
