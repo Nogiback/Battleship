@@ -3,10 +3,10 @@ import Gameboard from './Gameboard';
 import Ship from './Ship';
 
 // DOM Elements
-const message = document.getElementById('game-message');
-const shipContainer = document.getElementById('add-ships-container');
+const mainMessage = document.querySelector('#main-message');
+const secondMessage = document.querySelector('#secondary-message');
+const shipContainer = document.querySelector('#add-ships-container');
 const shipsDOM = document.querySelectorAll('.ship');
-const playerSide = document.querySelector('#player-side');
 const aiSide = document.querySelector('#ai-side');
 const startBtn = document.querySelector('#start-btn');
 const nameModal = document.querySelector('#name-modal');
@@ -55,7 +55,8 @@ submitBtn.addEventListener('click', (e) => {
   nameModal.close();
   startBtn.style.display = 'none';
   shipContainer.style.pointerEvents = 'auto';
-  message.textContent = 'Place your ships! Click to rotate them!';
+  mainMessage.textContent = 'Drag and drop your ships!';
+  secondMessage.textContent = 'Click to rotate them!';
 });
 
 // Allow ship placement and generate gameboards
@@ -117,7 +118,9 @@ function createGameboard(playerName) {
       cell.className = 'cell';
       cell.dataset.x = x;
       cell.dataset.y = y;
-      cell.textContent = `${x},${y}`;
+      //cell.textContent = `${x},${y}`;
+
+      // Applying event listeners to the cells for attacking and ship placement
       if (playerName.name === 'Computer') {
         cell.addEventListener('click', (e) => {
           handlePlayerAttack(e.target);
@@ -148,6 +151,7 @@ function dropPlayerShip(e) {
   const destroyerDOM = document.querySelector('#destroyer');
   let horizontal;
 
+  // Placing ship onto gameboard and DOM gameboard depending on ship type
   switch (shipName) {
     case 'carrier':
       if (carrierDOM.getAttribute('data-horizontal') === 'false') {
@@ -162,7 +166,8 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
-          message.textContent = 'Attack! Sink all the enemy ships!';
+          mainMessage.textContent = 'Sink all the enemy ships!';
+          secondMessage.textContent = 'Click the enemy board to attack!';
         }
       }
       break;
@@ -181,7 +186,8 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
-          message.textContent = 'Attack! Sink all the enemy ships!';
+          mainMessage.textContent = 'Sink all the enemy ships!';
+          secondMessage.textContent = 'Click the enemy board to attack!';
         }
       }
       break;
@@ -198,7 +204,8 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
-          message.textContent = 'Attack! Sink all the enemy ships!';
+          mainMessage.textContent = 'Sink all the enemy ships!';
+          secondMessage.textContent = 'Click the enemy board to attack!';
         }
       }
       break;
@@ -215,7 +222,8 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
-          message.textContent = 'Attack! Sink all the enemy ships!';
+          mainMessage.textContent = 'Sink all the enemy ships!';
+          secondMessage.textContent = 'Click the enemy board to attack!';
         }
       }
       break;
@@ -232,7 +240,8 @@ function dropPlayerShip(e) {
         if (shipContainer.childNodes.length <= 6) {
           shipContainer.style.display = 'none';
           aiSide.style.display = 'flex';
-          message.textContent = 'Attack! Sink all the enemy ships!';
+          mainMessage.textContent = 'Sink all the enemy ships!';
+          secondMessage.textContent = 'Click the enemy board to attack!';
         }
       }
       break;
@@ -281,6 +290,7 @@ function handleAIAttack() {
   }
 }
 
+// Applying hit or miss attributes to the cell depending on the result of the attacks
 function updateGameboard(result, cell) {
   if (result) {
     cell.classList.add('hit');
@@ -290,7 +300,8 @@ function updateGameboard(result, cell) {
 }
 
 function endGame(winner) {
-  message.textContent = `${winner.name} has won!`;
+  mainMessage.textContent = `GAME OVER`;
+  secondMessage.textContent = `${winner.getName()} Wins!`;
   aiSide.style.pointerEvents = 'none';
   endgameModal.show();
   winnerTitle.textContent = `${winner.getName()} Wins!`;
