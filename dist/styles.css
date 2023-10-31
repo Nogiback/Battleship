@@ -171,8 +171,23 @@ header {
   font-size: 1.5rem;
 }
 
+.cell:hover {
+  background-color: var(--purple);
+}
+
 .cell.occupied {
   background-color: var(--darkpurple);
+}
+
+.cell.hit,
+.cell.miss {
+  font-size: 1.5rem;
+  padding: 0;
+  color: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: 0.3s ease-in-out 1 fadeIn;
 }
 
 .cell.hit {
@@ -181,6 +196,16 @@ header {
 
 .cell.miss {
   background-color: grey;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 #start-btn {

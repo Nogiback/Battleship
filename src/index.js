@@ -7,6 +7,7 @@ const mainMessage = document.querySelector('#main-message');
 const secondMessage = document.querySelector('#secondary-message');
 const shipContainer = document.querySelector('#add-ships-container');
 const shipsDOM = document.querySelectorAll('.ship');
+const playerSide = document.querySelector('#player-side');
 const aiSide = document.querySelector('#ai-side');
 const startBtn = document.querySelector('#start-btn');
 const nameModal = document.querySelector('#name-modal');
@@ -132,7 +133,7 @@ function createGameboard(playerName) {
         });
         cell.addEventListener('drop', (e) => {
           e.preventDefault();
-          dropPlayerShip(e);
+          dropShipHandler(e);
         });
       }
       gameboardDOM.appendChild(cell);
@@ -140,7 +141,7 @@ function createGameboard(playerName) {
   }
 }
 
-function dropPlayerShip(e) {
+function dropShipHandler(e) {
   const shipName = e.dataTransfer.getData('text');
   const x = parseInt(e.target.getAttribute('data-x'));
   const y = parseInt(e.target.getAttribute('data-y'));
@@ -168,6 +169,7 @@ function dropPlayerShip(e) {
           aiSide.style.display = 'flex';
           mainMessage.textContent = 'Sink all the enemy ships!';
           secondMessage.textContent = 'Click the enemy board to attack!';
+          playerSide.style.pointerEvents = 'none';
         }
       }
       break;
@@ -188,6 +190,7 @@ function dropPlayerShip(e) {
           aiSide.style.display = 'flex';
           mainMessage.textContent = 'Sink all the enemy ships!';
           secondMessage.textContent = 'Click the enemy board to attack!';
+          playerSide.style.pointerEvents = 'none';
         }
       }
       break;
@@ -206,6 +209,7 @@ function dropPlayerShip(e) {
           aiSide.style.display = 'flex';
           mainMessage.textContent = 'Sink all the enemy ships!';
           secondMessage.textContent = 'Click the enemy board to attack!';
+          playerSide.style.pointerEvents = 'none';
         }
       }
       break;
@@ -224,6 +228,7 @@ function dropPlayerShip(e) {
           aiSide.style.display = 'flex';
           mainMessage.textContent = 'Sink all the enemy ships!';
           secondMessage.textContent = 'Click the enemy board to attack!';
+          playerSide.style.pointerEvents = 'none';
         }
       }
       break;
@@ -242,6 +247,7 @@ function dropPlayerShip(e) {
           aiSide.style.display = 'flex';
           mainMessage.textContent = 'Sink all the enemy ships!';
           secondMessage.textContent = 'Click the enemy board to attack!';
+          playerSide.style.pointerEvents = 'none';
         }
       }
       break;
@@ -293,9 +299,9 @@ function handleAIAttack() {
 // Applying hit or miss attributes to the cell depending on the result of the attacks
 function updateGameboard(result, cell) {
   if (result) {
-    cell.classList.add('hit');
+    cell.classList.add('hit', 'fa-solid', 'fa-skull');
   } else {
-    cell.classList.add('miss');
+    cell.classList.add('miss', 'fa-solid', 'fa-x');
   }
 }
 
