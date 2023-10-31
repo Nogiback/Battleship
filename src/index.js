@@ -150,107 +150,41 @@ function dropShipHandler(e) {
   const cruiserDOM = document.querySelector('#cruiser');
   const submarineDOM = document.querySelector('#submarine');
   const destroyerDOM = document.querySelector('#destroyer');
-  let horizontal;
 
   // Placing ship onto gameboard and DOM gameboard depending on ship type
   switch (shipName) {
     case 'carrier':
-      if (carrierDOM.getAttribute('data-horizontal') === 'false') {
-        horizontal = false;
-      } else {
-        horizontal = true;
-      }
-      if (player.gameboard.isValidPosition(playerCarrier, x, y, horizontal)) {
-        player.gameboard.placeShip(playerCarrier, x, y, horizontal);
-        renderShips(player);
-        shipContainer.removeChild(carrierDOM);
-        if (shipContainer.childNodes.length <= 6) {
-          shipContainer.style.display = 'none';
-          aiSide.style.display = 'flex';
-          mainMessage.textContent = 'Sink all the enemy ships!';
-          secondMessage.textContent = 'Click the enemy board to attack!';
-          playerSide.style.pointerEvents = 'none';
-        }
-      }
+      placePlayerShip(carrierDOM, playerCarrier, x, y);
       break;
     case 'battleship':
-      if (battleshipDOM.getAttribute('data-horizontal') === 'false') {
-        horizontal = false;
-      } else {
-        horizontal = true;
-      }
-      if (
-        player.gameboard.isValidPosition(playerBattleship, x, y, horizontal)
-      ) {
-        player.gameboard.placeShip(playerBattleship, x, y, horizontal);
-        renderShips(player);
-        shipContainer.removeChild(battleshipDOM);
-        if (shipContainer.childNodes.length <= 6) {
-          shipContainer.style.display = 'none';
-          aiSide.style.display = 'flex';
-          mainMessage.textContent = 'Sink all the enemy ships!';
-          secondMessage.textContent = 'Click the enemy board to attack!';
-          playerSide.style.pointerEvents = 'none';
-        }
-      }
+      placePlayerShip(battleshipDOM, playerBattleship, x, y);
       break;
     case 'cruiser':
-      if (cruiserDOM.getAttribute('data-horizontal') === 'false') {
-        horizontal = false;
-      } else {
-        horizontal = true;
-      }
-      if (player.gameboard.isValidPosition(playerCruiser, x, y, horizontal)) {
-        player.gameboard.placeShip(playerCruiser, x, y, horizontal);
-        renderShips(player);
-        shipContainer.removeChild(cruiserDOM);
-        if (shipContainer.childNodes.length <= 6) {
-          shipContainer.style.display = 'none';
-          aiSide.style.display = 'flex';
-          mainMessage.textContent = 'Sink all the enemy ships!';
-          secondMessage.textContent = 'Click the enemy board to attack!';
-          playerSide.style.pointerEvents = 'none';
-        }
-      }
+      placePlayerShip(cruiserDOM, playerCruiser, x, y);
       break;
     case 'submarine':
-      if (submarineDOM.getAttribute('data-horizontal') === 'false') {
-        horizontal = false;
-      } else {
-        horizontal = true;
-      }
-      if (player.gameboard.isValidPosition(playerSubmarine, x, y, horizontal)) {
-        player.gameboard.placeShip(playerSubmarine, x, y, horizontal);
-        renderShips(player);
-        shipContainer.removeChild(submarineDOM);
-        if (shipContainer.childNodes.length <= 6) {
-          shipContainer.style.display = 'none';
-          aiSide.style.display = 'flex';
-          mainMessage.textContent = 'Sink all the enemy ships!';
-          secondMessage.textContent = 'Click the enemy board to attack!';
-          playerSide.style.pointerEvents = 'none';
-        }
-      }
+      placePlayerShip(submarineDOM, playerSubmarine, x, y);
       break;
     case 'destroyer':
-      if (destroyerDOM.getAttribute('data-horizontal') === 'false') {
-        horizontal = false;
-      } else {
-        horizontal = true;
-      }
-      if (player.gameboard.isValidPosition(playerDestroyer, x, y, horizontal)) {
-        player.gameboard.placeShip(playerDestroyer, x, y, horizontal);
-        renderShips(player);
-        shipContainer.removeChild(destroyerDOM);
-        if (shipContainer.childNodes.length <= 6) {
-          shipContainer.style.display = 'none';
-          aiSide.style.display = 'flex';
-          mainMessage.textContent = 'Sink all the enemy ships!';
-          secondMessage.textContent = 'Click the enemy board to attack!';
-          playerSide.style.pointerEvents = 'none';
-        }
-      }
+      placePlayerShip(destroyerDOM, playerDestroyer, x, y);
       break;
+  }
+}
+
+function placePlayerShip(shipDOM, playerShip, x, y) {
+  const horizontal = shipDOM.getAttribute('data-horizontal') === 'true';
+
+  if (player.gameboard.isValidPosition(playerShip, x, y, horizontal)) {
+    player.gameboard.placeShip(playerShip, x, y, horizontal);
+    renderShips(player);
+    shipContainer.removeChild(shipDOM);
+    if (shipContainer.childNodes.length <= 6) {
+      shipContainer.style.display = 'none';
+      aiSide.style.display = 'flex';
+      mainMessage.textContent = 'Sink all the enemy ships!';
+      secondMessage.textContent = 'Click the enemy board to attack!';
+      playerSide.style.pointerEvents = 'none';
+    }
   }
 }
 
