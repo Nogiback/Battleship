@@ -34,7 +34,7 @@ describe('Player', () => {
     const horizontal = true;
     aiBoard.placeShip(ship, 0, 0, horizontal);
     player.startTurn();
-    expect(player.attack(ai, 0, 0)).toBe(true);
+    expect(player.attack(ai, 0, 0)).toEqual({ result: true, x: 0, y: 0 });
     expect(ship.getHits()[0]).toBe(true);
   });
 
